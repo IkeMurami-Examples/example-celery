@@ -1,1 +1,3 @@
 celery[redis]
+pydantic
+pydantic_settings
