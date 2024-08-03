@@ -8,7 +8,7 @@ from playground.queue.tasks.hippo import HelloTask as HippoHelloTask
 if __name__ == '__main__':
     print('Celery app', app)
     # Run worker
-    args = ['worker', '--loglevel=INFO']
+    args = ['worker', '--loglevel=INFO', '-E']
     app.worker_main(argv=args)
 
     # Run tasks

@@ -23,3 +23,16 @@ python example/main.py
 ```
 python -m pip uninstall celery-playground
 ```
+
+## Monitoring
+
+Чтобы удобно было мониторить celery таски, можно включить отслеживание событий (ключ `-E` при запуске worker'а или на уровне конфига celery приложения проставить `worker_send_task_events = True`).
+
+Смотреть это удобно, например, через [flower](https://flower.readthedocs.io/en/latest/install.html#installation). Вот так можно запустить flower, потом запускаем наше приложение:
+
+```
+python -m celery -A example.main.app flower
+python example/main.py
+```
+
+В браузере открываем https://localhost:5555/, на странице `tasks` видим наши таски и результат их выполнения 
