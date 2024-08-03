@@ -38,4 +38,4 @@ only-include = [
 ]
 
 [tool.hatch.build.targets.wheel.sources]
-"src/queue" = "celery/queue"
+"src/queue" = "playground/queue"
