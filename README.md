@@ -6,7 +6,13 @@
 python -m pip install .
 ```
 
-Потом запускаем код (он сам запустит celery worker и таски):
+В качестве celery broker и celery backend использую redis, поднимем его:
+
+```
+docker run -d -p 6379:6379 redis
+```
+
+Потом запускаем код. Он сам настроит celery приложения (прокину в него в виде конфигов настройки), запустит celery worker и таски:
 
 ```
 python example/main.py
