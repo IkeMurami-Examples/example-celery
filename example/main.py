@@ -1,9 +1,11 @@
 from celery import group
+from celery.signals import task_success
 
 from playground.queue import app
 from playground.queue.tasks.giraffe import HelloTask as GiraffeHelloTask
 from playground.queue.tasks.hippo import HelloTask as HippoHelloTask
 from playground.queue.tasks.hippo import EatingAlertTask
+from playground.queue.tasks.giraffe import IdempotentTask, NotIdempotentTask
 
 
 @app.on_after_configure.connect
@@ -11,6 +13,12 @@ def setup_periodic_tasks(sender, **kwargs):
     # https://docs.celeryq.dev/en/stable/userguide/periodic-tasks.html
     # Calls EatingAlertTask() every 10 seconds.
     sender.add_periodic_task(10.0, EatingAlertTask.s(), name='eat every 10')
+
+    # ...
+    sender.add_periodic_task(5.0, IdempotentTask.s(), name='idemp every 5')
+
+    # ...
+    sender.add_periodic_task(5.0, NotIdempotentTask.s(), name='not idemp every 5')
 
 
 if __name__ == '__main__':
