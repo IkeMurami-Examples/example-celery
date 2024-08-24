@@ -19,4 +19,11 @@ app = MyCelery(
     backend=celery_config.result_backend,
 )
 app.config_from_object(CeleryConfig)
+app.conf.ONCE = {
+  'backend': 'celery_once.backends.Redis',
+  'settings': {
+    'url': celery_config.result_backend,
+    'default_timeout': 60 * 60
+  }
+}
 app.autodiscover_tasks()
