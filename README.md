@@ -36,3 +36,10 @@ python example/main.py
 ```
 
 В браузере открываем https://localhost:5555/, на странице `tasks` видим наши таски и результат их выполнения 
+
+## Containerized
+
+```
+docker compose -f .\deploy\docker-compose.yml build
+docker compose -f .\deploy\docker-compose.yml up
+```

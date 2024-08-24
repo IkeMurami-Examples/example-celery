@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  celery_redis:
+    container_name: celery-redis
+    image: redis:latest
+    restart: always
+    expose:
+      - 6379
+
+  celery_worker:
+    container_name: celery-worker
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    restart: always
+    ports:
+      - 5555:5555  # flower
+    depends_on:
+      - celery_redis
+    environment:
+      - BROKER_URL=redis://celery-redis
+      - RESULT_BACKEND=redis://celery-redis
+      - WORKER_SEND_TASK_EVENTS=1
