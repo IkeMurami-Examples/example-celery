@@ -18,7 +18,7 @@ app = MyCelery(
     broker=celery_config.broker_url,
     backend=celery_config.result_backend,
 )
-app.config_from_object(CeleryConfig)
+app.config_from_object(celery_config.model_dump())
 app.conf.ONCE = {
   'backend': 'celery_once.backends.Redis',
   'settings': {
